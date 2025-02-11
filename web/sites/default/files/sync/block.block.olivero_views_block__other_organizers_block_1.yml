@@ -1,0 +1,25 @@
+uuid: af142020-d237-4694-bf65-7ab369a5c56a
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.other_organizers
+  module:
+    - views
+  theme:
+    - olivero
+id: olivero_views_block__other_organizers_block_1
+theme: olivero
+region: sidebar
+weight: 0
+provider: null
+plugin: 'views_block:other_organizers-block_1'
+settings:
+  id: 'views_block:other_organizers-block_1'
+  label: Organizers
+  label_display: visible
+  provider: views
+  context_mapping: {  }
+  views_label: Organizers
+  items_per_page: none
+visibility: {  }

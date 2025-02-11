@@ -1,0 +1,29 @@
+uuid: 8874b97e-bc06-4526-bbb0-0a450a93149e
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.organizers_grid
+  module:
+    - system
+    - views
+  theme:
+    - olivero
+id: olivero_views_block__organizers_grid_block_1
+theme: olivero
+region: content
+weight: 0
+provider: null
+plugin: 'views_block:organizers_grid-block_1'
+settings:
+  id: 'views_block:organizers_grid-block_1'
+  label: ''
+  label_display: visible
+  provider: views
+  views_label: ''
+  items_per_page: none
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: /home

@@ -1,0 +1,15 @@
+_core:
+  default_config_hash: ijfbzDTN4CbE7Sr-6ubWzy_t1vH4OtU1doNCLssVz-4
+langcode: en
+uuid: 4911c3f9-6fc9-4094-912f-63f2e37e26cf
+name: Events
+mail: events@tejasvaij.com
+slogan: '"Bringing People Together, One Event at a Time"'
+page:
+  403: ''
+  404: ''
+  front: /node/14
+admin_compact_mode: false
+weight_select_max: 100
+default_langcode: en
+mail_notification: null

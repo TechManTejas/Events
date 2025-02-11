@@ -1,0 +1,34 @@
+uuid: f3de8807-4b44-479e-8021-4ed4f6eda36f
+langcode: en
+status: true
+dependencies:
+  config:
+    - filter.format.basic_html
+    - filter.format.full_html
+    - filter.format.restricted_html
+    - node.type.article
+    - node.type.organizer
+  module:
+    - filter
+    - node
+    - system
+    - toolbar
+id: organizer
+label: Organizer
+weight: 4
+is_admin: false
+permissions:
+  - 'access content'
+  - 'access content overview'
+  - 'access toolbar'
+  - 'access user profiles'
+  - 'change own username'
+  - 'create article content'
+  - 'delete own article content'
+  - 'edit own article content'
+  - 'edit own organizer content'
+  - 'select account cancellation method'
+  - 'use text format basic_html'
+  - 'use text format full_html'
+  - 'use text format restricted_html'
+  - 'view user email addresses'

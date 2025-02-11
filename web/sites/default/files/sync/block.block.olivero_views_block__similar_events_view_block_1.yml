@@ -1,0 +1,32 @@
+uuid: a6be6b80-f466-4f3d-b9e1-2b6cc6ddf9c4
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.similar_events_view
+  module:
+    - node
+    - views
+  theme:
+    - olivero
+id: olivero_views_block__similar_events_view_block_1
+theme: olivero
+region: content
+weight: 0
+provider: null
+plugin: 'views_block:similar_events_view-block_1'
+settings:
+  id: 'views_block:similar_events_view-block_1'
+  label: ''
+  label_display: '0'
+  provider: views
+  views_label: ''
+  items_per_page: none
+visibility:
+  'entity_bundle:node':
+    id: 'entity_bundle:node'
+    negate: false
+    context_mapping:
+      node: '@node.node_route_context:node'
+    bundles:
+      article: article
