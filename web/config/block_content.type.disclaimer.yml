@@ -1,0 +1,8 @@
+uuid: 9d6b3700-da1a-47e6-a9c8-51b2671c2054
+langcode: en
+status: true
+dependencies: {  }
+id: disclaimer
+label: 'Footer navigation'
+revision: false
+description: null

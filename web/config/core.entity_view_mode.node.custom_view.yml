@@ -1,0 +1,11 @@
+uuid: a8a27e8e-dedf-40b3-93df-804a0cd1b835
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.custom_view
+label: Thumbnail
+description: ''
+targetEntityType: node
+cache: true
