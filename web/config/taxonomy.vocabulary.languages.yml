@@ -1,9 +1,0 @@
-uuid: 7500b7c9-75f9-430f-8305-2779daff635f
-langcode: en
-status: true
-dependencies: {  }
-name: Languages
-vid: languages
-description: null
-weight: 0
-new_revision: false

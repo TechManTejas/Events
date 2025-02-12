@@ -1,9 +1,0 @@
-uuid: ca0089ba-2544-4388-9c38-28023c577e3c
-langcode: en
-status: true
-dependencies: {  }
-name: Popularity
-vid: popularity
-description: null
-weight: 0
-new_revision: false
