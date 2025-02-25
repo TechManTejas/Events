@@ -1,0 +1,10 @@
+body { background-color: rgb(246, 253, 255);}
+
+.title-truncate {
+    white-space: nowrap;       /* Prevents wrapping to the next line */
+    overflow: hidden;          /* Hides overflowing content */
+    text-overflow: ellipsis;   /* Shows "..." when text is too long */
+    display: block;            /* Ensures proper behavior */
+    max-width: 100%;           /* Adjust based on layout */
+  }
+  

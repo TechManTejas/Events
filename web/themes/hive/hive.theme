@@ -1,0 +1,68 @@
+<?php
+
+declare(strict_types=1);
+
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * @file
+ * Functions to support theming in the Hive theme.
+ */
+
+/**
+ * Implements hook_preprocess_HOOK() for html.html.twig.
+ */
+function hive_preprocess_html(array &$variables): void {
+
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for node.html.twig.
+ */
+function hive_preprocess_node(array &$variables): void {
+    $variables['today'] = date('H:i , Y-n-d');
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for page.html.twig.
+ */
+function hive_preprocess_page(array &$variables): void {
+    $config = \Drupal::config('hive.settings');
+    $variables['primary_color'] = $config->get('primary_color') ?? '#ff6600';
+    $variables['secondary_color'] = $config->get('secondary_color') ?? '#333399';
+}
+
+function hive_form_system_theme_settings_alter(&$form, FormStateInterface $form_state) {
+    $form['hive_custom_settings'] = [
+        '#type' => 'details',
+        '#title' => t('Hive Theme Settings'),
+        '#open' => TRUE,
+    ];
+
+    // Primary Color Picker
+    $form['hive_custom_settings']['primary_color'] = [
+        '#type' => 'color',
+        '#title' => t('Primary Color'),
+        '#default_value' => theme_get_setting('primary_color') ?? '#ff6600', // Default to orange
+    ];
+
+    // Secondary Color Picker
+    $form['hive_custom_settings']['secondary_color'] = [
+        '#type' => 'color',
+        '#title' => t('Secondary Color'),
+        '#default_value' => theme_get_setting('secondary_color') ?? '#333399', // Default to blue
+    ];
+
+    // Ensure settings get saved
+    $form['#submit'][] = 'hive_theme_settings_submit';
+}
+
+/**
+ * Submit handler to save theme settings.
+ */
+function hive_theme_settings_submit(&$form, FormStateInterface $form_state) {
+    \Drupal::configFactory()->getEditable('hive.settings')
+        ->set('primary_color', $form_state->getValue('primary_color'))
+        ->set('secondary_color', $form_state->getValue('secondary_color'))
+        ->save();
+}

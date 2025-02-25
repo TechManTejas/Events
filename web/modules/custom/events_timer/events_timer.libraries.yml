@@ -1,0 +1,8 @@
+countdown_timer:
+  version: 1.x
+  js:
+    js/countdown_timer.js: {}
+  dependencies:
+    - core/drupal
+    - core/jquery
+    - core/drupalSettings

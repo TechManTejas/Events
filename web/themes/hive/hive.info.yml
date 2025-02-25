@@ -1,0 +1,23 @@
+name: Hive
+type: theme
+base theme: claro
+description: A theme for EventHive website
+package: Custom
+core_version_requirement: ^10 || ^11
+libraries:
+  - hive/global
+  - hive/bootstrap
+regions:
+  header: 'Header'
+  primary_menu: 'Primary menu'
+  secondary_menu: 'Secondary menu'
+  page_top: 'Page top'
+  page_bottom: 'Page bottom'
+  highlighted: 'Highlighted'
+  featured_top: 'Featured top'
+  breadcrumb: 'Breadcrumb'
+  content: 'Content'
+  sidebar_first: 'Sidebar first'
+  sidebar_second: 'Sidebar second'
+  footer_first: 'Footer first'
+  footer_second: 'Footer second'
