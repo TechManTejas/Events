@@ -1,0 +1,13 @@
+<div class="events-card-list">
+  <div class="carousel-wrapper">
+    <button class="carousel-prev">‹</button>
+    <div class="carousel-container">
+      {% for event in events %}
+        {{ include("hive:event-card", event) }}
+      {% endfor %}
+    </div>
+    <button class="carousel-next">›</button>
+  </div>
+</div>
+
+<script src="/themes/hive/components/events-card-list/events-card-list.js"></script>

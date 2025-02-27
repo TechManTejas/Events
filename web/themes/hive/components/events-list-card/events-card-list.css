@@ -1,0 +1,51 @@
+.events-card-list {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Center the carousel */
+    gap: 10px;
+    position: relative;
+    max-width: 100%;
+    overflow: hidden;
+  }
+  
+  .carousel-wrapper {
+    position: relative;
+    width: calc(300px * 3 + 40px); /* Ensure exact width for 3 cards */
+    margin: auto;
+  }
+  
+  .carousel-container {
+    display: flex;
+    gap: 20px;
+    overflow: hidden;
+    scroll-behavior: smooth;
+    justify-content: center; /* Center the cards */
+  }
+  
+  .event-card {
+    flex: 0 0 300px; /* Each card has a fixed width */
+  }
+  
+  .carousel-prev,
+  .carousel-next {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 10px;
+    font-size: 20px;
+    cursor: pointer;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+  }
+  
+  .carousel-prev { left: -50px; } /* Adjust so it's always visible */
+  .carousel-next { right: -50px; }
+  
+  .carousel-prev:hover,
+  .carousel-next:hover {
+    background: #0056b3;
+  }
+  

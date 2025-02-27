@@ -1,0 +1,13 @@
+type: component
+schema:
+  properties:
+    title:
+      type: string
+    date:
+      type: string
+    location:
+      type: string
+    image:
+      type: string
+    link:
+      type: string

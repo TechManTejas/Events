@@ -11,6 +11,8 @@
       let eventStartTime = settings.events_timer.eventStartTime * 1000;
       let countdownElements = document.querySelectorAll(".countdown-timer");
 
+      console.log(countdownElements)
+
       countdownElements.forEach((element) => {
         function updateCountdown() {
           let now = new Date().getTime();

@@ -1,0 +1,13 @@
+.banner {
+  background-size: cover;
+  background-position: center;
+  padding: 40px;
+  color: white;
+  text-align: center;
+}
+.banner-content {
+  background: rgba(0, 0, 0, 0.5);
+  padding: 20px;
+  display: inline-block;
+  border-radius: 8px;
+}

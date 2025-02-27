@@ -40,6 +40,12 @@
  */
 #}
 <main class="container" style="background-color: {{ primary_color }}; color: {{ secondary_color }};">
+  {{ include("hive:banner" , { 
+    title: 'Welcome!',
+    description: 'Find and organize events.',
+    background_image: '/themes/hive/assets/banner-bg.jpg'
+  })}}
+  
   <div class="visually-hidden">
     <a id="main-content" tabindex="-1"></a>
   </div>
@@ -51,6 +57,83 @@
       </div>
     </header>
   {% endif %}
+
+  {% embed 'hive:featured-event' with { 
+    title: 'Drupal Meetup 2025', 
+    date: 'June 15, 2025', 
+    location: 'Berlin, Germany' 
+  } %}
+    {% block event_description %}
+      <p>Join us for an exciting meetup where Drupal enthusiasts discuss the latest trends and features.</p>
+    {% endblock %}
+    
+    {% block action_button %}
+      <a href="/register" class="btn btn-primary">Register Now</a>
+    {% endblock %}
+  {% endembed %}
+
+
+  {{ include("hive:events-card-list", { 
+      events: [
+        { 
+          title: 'Tech Summit 2025', 
+          date: 'April 10, 2025', 
+          location: 'New York, USA', 
+          image: '/themes/hive/assets/banner-bg.jpg', 
+          link: '/event/tech-summit-2025'
+        },
+        { 
+          title: 'AI Conference', 
+          date: 'May 5, 2025', 
+          location: 'San Francisco, USA', 
+          image: '/themes/hive/assets/banner-bg.jpg', 
+          link: '/event/ai-conference-2025'
+        },
+        { 
+          title: 'Design Meetup', 
+          date: 'June 20, 2025', 
+          location: 'Berlin, Germany', 
+          image: '/themes/hive/assets/banner-bg.jpg', 
+          link: '/event/design-meetup-2025'
+        },
+        { 
+          title: 'Design Meetup', 
+          date: 'June 20, 2025', 
+          location: 'Berlin, Germany', 
+          image: '/themes/hive/assets/banner-bg.jpg', 
+          link: '/event/design-meetup-2025'
+        },
+        { 
+          title: 'Design Meetup', 
+          date: 'June 20, 2025', 
+          location: 'Berlin, Germany', 
+          image: '/themes/hive/assets/banner-bg.jpg', 
+          link: '/event/design-meetup-2025'
+        },
+        { 
+          title: 'Design Meetup', 
+          date: 'June 20, 2025', 
+          location: 'Berlin, Germany', 
+          image: '/themes/hive/assets/banner-bg.jpg', 
+          link: '/event/design-meetup-2025'
+        },
+        { 
+          title: 'Design Meetup', 
+          date: 'June 20, 2025', 
+          location: 'Berlin, Germany', 
+          image: '/themes/hive/assets/banner-bg.jpg', 
+          link: '/event/design-meetup-2025'
+        },
+        { 
+          title: 'Design Meetup', 
+          date: 'June 20, 2025', 
+          location: 'Berlin, Germany', 
+          image: '/themes/hive/assets/banner-bg.jpg', 
+          link: '/event/design-meetup-2025'
+        }
+      ]
+  }) }}
+
 
   {% if page.primary_menu or page.secondary_menu %}
     <nav class="row navbar navbar-expand-lg navbar-light bg-light">
@@ -89,6 +172,12 @@
       <aside class="col-md-3 sidebar-second">{{ page.sidebar_second }}</aside>
     {% endif %}
   </div>
+
+  {{ include("hive:banner" , { 
+    title: 'Events!',
+    description: '"Bringing People Together, One Event at a Time"',
+    background_image: '/themes/hive/assets/footer-banner-bg.jpg'
+  })}}
 
   <footer class="row mt-4 bg-dark text-white py-3">
     <div class="col-md-6 footer-first">{{ page.footer_first }}</div>

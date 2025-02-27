@@ -4,6 +4,8 @@ base theme: claro
 description: A theme for EventHive website
 package: Custom
 core_version_requirement: ^10 || ^11
+component_directories:
+  - components
 libraries:
   - hive/global
   - hive/bootstrap

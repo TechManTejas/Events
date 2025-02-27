@@ -1,0 +1,12 @@
+.featured-event {
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+.event-description {
+  margin-top: 10px;
+}
+.event-action {
+  margin-top: 15px;
+}

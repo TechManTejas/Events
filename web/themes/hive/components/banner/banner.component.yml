@@ -1,0 +1,9 @@
+type: component
+schema:
+  properties:
+    title:
+      type: string
+    description:
+      type: string
+    background_image:
+      type: string
