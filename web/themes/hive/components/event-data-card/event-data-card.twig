@@ -1,0 +1,44 @@
+{#
+/**
+ * @file
+ * Single Directory Component (SDC) for displaying event data as a card.
+ *
+ * Expected variables:
+ * - title: The event title.
+ * - url: The link to the full event.
+ * - image: The event image.
+ * - summary: A short description or summary of the event.
+ * - start_time: The event's start time.
+ * - organizer: The event's organizer.
+ * - popularity: The event's popularity term.
+ * - tags: The event's associated tags.
+ */
+#}
+
+<div class="event-card">
+  <a href="{{ url }}" class="text-decoration-none">
+    <div class="event-card__image">
+      {% if image %}
+        <img src="{{ file_url(image.uri.value) }}" class="w-100 h-100 object-fit-cover">
+      {% else %}
+        <div class="event-card__image-placeholder">No Image Available</div>
+      {% endif %}
+    </div>
+    <div class="event-card__content p-3">
+      <h2 class="event-card__title fw-bold">{{ title }}</h2>
+      <p class="event-card__summary text-muted">{{ summary }}</p>
+      <div class="event-card__meta small text-secondary">
+        <span class="event-card__date">📅 {{ start_time|date("F j, Y") }}</span>
+        <span class="event-card__organizer">👤 {{ organizer|default('Unknown') }}</span>
+        <span class="event-card__popularity">🔥 {{ popularity|default('N/A') }}</span>
+      </div>
+      {% if tags %}
+        <div class="event-card__tags mt-2">
+          {% for tag in tags %}
+            <span class="badge bg-warning text-dark">{{ tag }}</span>
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+  </a>
+</div>

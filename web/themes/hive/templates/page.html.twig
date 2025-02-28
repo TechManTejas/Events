@@ -73,66 +73,7 @@
   {% endembed %}
 
 
-  {{ include("hive:events-card-list", { 
-      events: [
-        { 
-          title: 'Tech Summit 2025', 
-          date: 'April 10, 2025', 
-          location: 'New York, USA', 
-          image: '/themes/hive/assets/banner-bg.jpg', 
-          link: '/event/tech-summit-2025'
-        },
-        { 
-          title: 'AI Conference', 
-          date: 'May 5, 2025', 
-          location: 'San Francisco, USA', 
-          image: '/themes/hive/assets/banner-bg.jpg', 
-          link: '/event/ai-conference-2025'
-        },
-        { 
-          title: 'Design Meetup', 
-          date: 'June 20, 2025', 
-          location: 'Berlin, Germany', 
-          image: '/themes/hive/assets/banner-bg.jpg', 
-          link: '/event/design-meetup-2025'
-        },
-        { 
-          title: 'Design Meetup', 
-          date: 'June 20, 2025', 
-          location: 'Berlin, Germany', 
-          image: '/themes/hive/assets/banner-bg.jpg', 
-          link: '/event/design-meetup-2025'
-        },
-        { 
-          title: 'Design Meetup', 
-          date: 'June 20, 2025', 
-          location: 'Berlin, Germany', 
-          image: '/themes/hive/assets/banner-bg.jpg', 
-          link: '/event/design-meetup-2025'
-        },
-        { 
-          title: 'Design Meetup', 
-          date: 'June 20, 2025', 
-          location: 'Berlin, Germany', 
-          image: '/themes/hive/assets/banner-bg.jpg', 
-          link: '/event/design-meetup-2025'
-        },
-        { 
-          title: 'Design Meetup', 
-          date: 'June 20, 2025', 
-          location: 'Berlin, Germany', 
-          image: '/themes/hive/assets/banner-bg.jpg', 
-          link: '/event/design-meetup-2025'
-        },
-        { 
-          title: 'Design Meetup', 
-          date: 'June 20, 2025', 
-          location: 'Berlin, Germany', 
-          image: '/themes/hive/assets/banner-bg.jpg', 
-          link: '/event/design-meetup-2025'
-        }
-      ]
-  }) }}
+  {{ include("hive:events-card-list", { events: content.events }) }}
 
 
   {% if page.primary_menu or page.secondary_menu %}

@@ -3,6 +3,8 @@
 declare(strict_types=1);
 
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\node\Entity\Node;
+use Drupal\hive\EventService;
 
 /**
  * @file
@@ -30,6 +32,79 @@ function hive_preprocess_page(array &$variables): void {
     $config = \Drupal::config('hive.settings');
     $variables['primary_color'] = $config->get('primary_color') ?? '#ff6600';
     $variables['secondary_color'] = $config->get('secondary_color') ?? '#333399';
+
+    // Query latest 8 published events.
+    $query = \Drupal::entityQuery('node')
+    ->condition('type', 'article') // Ensure this is the correct machine name for your event content type
+    ->condition('status', 1) // Only published events
+    ->sort('field_event_start_time', 'ASC') // Sort by event start time (soonest first)
+    ->range(0, 8) // Limit to 8 events
+    ->accessCheck(TRUE); // Explicit access check
+
+    $nids = $query->execute();
+    $events = [];
+
+    if (!empty($nids)) {
+    $nodes = Node::loadMultiple($nids);
+
+    foreach ($nodes as $node) {
+    $title = $node->getTitle() ?: 'Untitled Event';
+
+    // Event Start Time (formatted)
+    $date_field = $node->get('field_event_start_time')->value;
+    $date = $date_field ? date('F j, Y', strtotime($date_field)) : 'TBA';
+
+    // Location (optional, not in the provided fields)
+    $location = 'Location TBD'; // Placeholder, update if location is stored elsewhere
+
+    // Image Handling (use default if missing)
+    $image_field = $node->get('field_image')->entity;
+    $image_url = \Drupal::service('file_url_generator')->generateAbsoluteString($image_field->getFileUri());
+
+    // Organizer Name (linked to content)
+    $organizer_entity = $node->get('field_organizer')->entity;
+    $organizer = $organizer_entity ? $organizer_entity->label() : 'Unknown Organizer';
+
+    // Popularity (Taxonomy Term)
+    $popularity_terms = $node->get('field_popularity')->referencedEntities();
+    $popularity = !empty($popularity_terms) ? $popularity_terms[0]->label() : 'Not Rated';
+
+    // Tags (multiple terms)
+    $tag_entities = $node->get('field_tags')->referencedEntities();
+    $tags = array_map(fn($tag) => $tag->label(), $tag_entities);
+
+    // Event URL
+    $link = $node->toUrl()->toString() ?: '#';
+
+    $events[] = [
+        'title' => $title,
+        'date' => $date,
+        'location' => $location,
+        'image' => $image_url,
+        'organizer' => $organizer,
+        'popularity' => $popularity,
+        'tags' => $tags,
+        'link' => $link,
+    ];
+    }
+    }
+
+    // Provide a default placeholder event if no events exist
+    if (empty($events)) {
+    $events[] = [
+    'title' => 'No Events Available',
+    'date' => 'Stay Tuned',
+    'location' => 'More info coming soon',
+    'image' => '/themes/hive/assets/default-event.jpg',
+    'organizer' => 'TBA',
+    'popularity' => 'Not Rated',
+    'tags' => [],
+    'link' => '#',
+    ];
+    }
+
+    // Pass events data to the template
+    $variables['content']['events'] = $events;
 }
 
 function hive_form_system_theme_settings_alter(&$form, FormStateInterface $form_state) {

@@ -1,0 +1,31 @@
+type: component
+label: "Event Data Card"
+description: "Displays an event as a card with details like title, image, date, organizer, and tags."
+schema:
+  properties:
+    title:
+      type: string
+      description: "The title of the event."
+    url:
+      type: string
+      description: "The URL to the full event details."
+    image:
+      type: object
+      description: "The event image file object."
+    summary:
+      type: string
+      description: "A short description or summary of the event."
+    start_time:
+      type: string
+      description: "The event's start time."
+    organizer:
+      type: string
+      description: "The name of the event organizer."
+    popularity:
+      type: string
+      description: "The popularity or category of the event."
+    tags:
+      type: array
+      description: "List of associated event tags."
+      items:
+        type: string
