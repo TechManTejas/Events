@@ -1,0 +1,5 @@
+name: 'Hello Visitor'
+type: module
+description: 'Module package for module development'
+package: Custom
+core_version_requirement: ^10 || ^11
