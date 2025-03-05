@@ -59,18 +59,20 @@
   {% endif %}
 
   {% embed 'hive:featured-event' with { 
-    title: 'Drupal Meetup 2025', 
+    title: 'Drupal Meetup 2025'|t, 
     date: 'June 15, 2025', 
-    location: 'Berlin, Germany' 
+    location: 'Berlin, Germany'|t 
   } %}
     {% block event_description %}
-      <p>Join us for an exciting meetup where Drupal enthusiasts discuss the latest trends and features.</p>
+      <p>{{ 'Join us for an exciting meetup where Drupal enthusiasts discuss the latest trends and features.'|t }}</p>
     {% endblock %}
     
     {% block action_button %}
-      <a href="/register" class="btn btn-primary">Register Now</a>
+      <a href="/register" class="btn btn-primary">{{ 'Register Now'|t }}</a>
     {% endblock %}
   {% endembed %}
+
+
 
 
   {{ include("hive:events-card-list", { events: content.events }) }}

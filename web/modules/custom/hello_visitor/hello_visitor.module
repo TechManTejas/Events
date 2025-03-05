@@ -1,0 +1,18 @@
+<?php
+
+use Drupal\hello_visitor\Event\UserLoggedInEvent;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+
+/**
+ * Implements hook_user_login().
+ */
+function hello_visitor_user_login(\Drupal\user\UserInterface $account) {
+    \Drupal::logger('hello_visitor')->notice('User @name has logged in.', [
+      '@name' => $account->getDisplayName(),
+    ]);
+
+    // Dispatch the custom event.
+    $event = new UserLoggedInEvent($account);
+    \Drupal::service('event_dispatcher')->dispatch($event, UserLoggedInEvent::EVENT_NAME);
+  }
+

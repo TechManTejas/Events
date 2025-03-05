@@ -1,0 +1,10 @@
+services:
+  hello_visitor.forecast_client:
+    class: Drupal\hello_visitor\ForecastClient
+    autowire: true
+
+  hello_visitor.user_login_reward_subscriber:
+    class: 'Drupal\hello_visitor\EventSubscriber\UserLoginRewardSubscriber'
+    arguments: ['@logger.factory', '@current_user']
+    tags:
+      - { name: event_subscriber }
