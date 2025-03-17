@@ -1,0 +1,22 @@
+# Schema for the configuration files of the Hello Visitor module.
+# https://www.drupal.org/docs/drupal-apis/configuration-api/configuration-schemametadata
+hello_visitor.settings:
+  type: config_object
+  label: 'Hello Visitor settings'
+  mapping:
+    default_event_duration:
+      type: integer
+      label: 'Default Event Duration (hours)'
+      description: 'Set the default duration for new events.'
+    max_attendees:
+      type: integer
+      label: 'Maximum Attendees per Event'
+      description: 'Set the maximum number of attendees allowed for an event.'
+    event_categories:
+      type: string
+      label: 'Event Categories'
+      description: 'Available event categories, one per line.'
+    enable_rsvp:
+      type: boolean
+      label: 'Enable RSVP System'
+      description: 'Toggle RSVP system on/off.'

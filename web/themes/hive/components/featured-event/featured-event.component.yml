@@ -1,15 +1,17 @@
 name: Featured Event
 description: A component to highlight a featured event.
 props:
-  title:
-    type: string
-    title: Event Title
-  date:
-    type: string
-    title: Event Date
-  location:
-    type: string
-    title: Event Location
+  type: object
+  properties:
+    title:
+      type: string
+      title: Event Title
+    date:
+      type: string
+      title: Event Date
+    location:
+      type: string
+      title: Event Location
 slots:
   event_description:
     title: Event Description

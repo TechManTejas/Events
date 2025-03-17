@@ -1,7 +1,7 @@
 services:
   hello_visitor.forecast_client:
     class: Drupal\hello_visitor\ForecastClient
-    autowire: true
+    arguments: ['@http_client', '@logger.factory', '@cache.default']
 
   hello_visitor.user_login_reward_subscriber:
     class: 'Drupal\hello_visitor\EventSubscriber\UserLoginRewardSubscriber'

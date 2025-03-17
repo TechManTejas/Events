@@ -1,0 +1,5 @@
+# Default configuration for the Hello Visitor module.
+default_event_duration: 2
+max_attendees: 100
+event_categories: ''
+enable_rsvp: false

@@ -4,20 +4,17 @@ declare(strict_types=1);
 
 namespace Drupal\hello_visitor\Plugin\Block;
 
+use Drupal\Core\Block\Attribute\Block;
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Session\AccountProxyInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\Core\Form\FormStateInterface;
 
 /**
  * Provides a hello world block.
- *
- * @Block(
- *   id = "hello_visitor_hello_visitor",
- *   admin_label = @Translation("Hello Visitor"),
- *   category = @Translation("Custom"),
- * )
  */
 #[Block(
   id: 'hello_visitor_hello_visitor',
@@ -34,6 +31,13 @@ class HelloVisitorBlock extends BlockBase implements ContainerFactoryPluginInter
   private $currentUser;
 
   /**
+   * The entity type manager service.
+   *
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   */
+  private $entityTypeManager;
+
+  /**
    * Construct a HelloVisitorBlock.
    *
    * @param array $configuration
@@ -44,10 +48,13 @@ class HelloVisitorBlock extends BlockBase implements ContainerFactoryPluginInter
    *   The plugin implementation definition.
    * @param \Drupal\Core\Session\AccountProxyInterface $current_user
    *   The current user service.
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+   *   The entity type manager service.
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, AccountProxyInterface $current_user) {
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, AccountProxyInterface $current_user, EntityTypeManagerInterface $entity_type_manager) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->currentUser = $current_user;
+    $this->entityTypeManager = $entity_type_manager;
   }
 
   /**
@@ -58,7 +65,8 @@ class HelloVisitorBlock extends BlockBase implements ContainerFactoryPluginInter
       $configuration,
       $plugin_id,
       $plugin_definition,
-      $container->get('current_user')
+      $container->get('current_user'),
+      $container->get('entity_type.manager')
     );
   }
 
@@ -66,24 +74,64 @@ class HelloVisitorBlock extends BlockBase implements ContainerFactoryPluginInter
    * {@inheritdoc}
    */
   public function build(): array {
+    $config = $this->getConfiguration();
+    $anonymous_message = $config['custom_message'] ?? 'Hello Visitor!';
+
     if ($this->currentUser->isAuthenticated()) {
-      $build['content'] = [
-        '#markup' => $this->t('Hello, @name! Welcome back.', ['@name' => $this->currentUser->getDisplayName()]),
-      ];
+      $message = $this->t('Hello, @name! Welcome back.', ['@name' => $this->currentUser->getDisplayName()]);
     }
     else {
-      $build['content'] = [
-        '#markup' => $this->t('Hello world!'),
-      ];
+      $message = $anonymous_message;
     }
 
-    // This block contains content that is different depending on the user so
-    // we don't want it to get cached.
+    $build['content'] = [
+      '#markup' => $message,
+    ];
+
     $build['content']['#cache'] = [
-      'max-age' => 0,
+      'contexts' => ['user'],
+      'tags' => $this->entityTypeManager->getStorage('user')->load($this->currentUser->id())->getCacheTags(),
     ];
 
     return $build;
+  }
+
+  /**
+   * Block configuration form.
+   */
+  public function blockForm($form, FormStateInterface $form_state) {
+    $config = $this->getConfiguration();
+
+    $form['custom_message'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Custom message for anonymous users'),
+      '#default_value' => $config['custom_message'] ?? 'Hello Visitor!',
+      '#ajax' => [
+        'callback' => '::ajaxPreviewMessage',
+        'wrapper' => 'hello-visitor-preview',
+      ],
+    ];
+
+    $form['preview'] = [
+      '#type' => 'markup',
+      '#markup' => '<div id="hello-visitor-preview">' . ($config['custom_message'] ?? 'Hello Visitor!') . '</div>',
+    ];
+
+    return $form;
+  }
+
+  /**
+   * AJAX callback to update preview text.
+   */
+  public function ajaxPreviewMessage(array &$form, FormStateInterface $form_state) {
+    return $form['preview'];
+  }
+
+  /**
+   * Save block configuration.
+   */
+  public function blockSubmit($form, FormStateInterface $form_state) {
+    $this->setConfigurationValue('custom_message', $form_state->getValue('custom_message'));
   }
 
 }

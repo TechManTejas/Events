@@ -13,7 +13,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  */
 class MoreEventsPage extends ControllerBase {
 
-    /**
+  /**
    * Forecast API client.
    *
    * @var \Drupal\hello_visitor\ForecastClientInterface
@@ -46,9 +46,16 @@ class MoreEventsPage extends ControllerBase {
     // Style should be one of 'short', or 'extended'. And default to 'short'.
     $style = (in_array($style, ['short', 'extended'])) ? $style : 'short';
 
+    // Get the configuration object from the configuration factory service.
+    $settings = $this->config('hello_visitor.settings');
+
     $url = 'https://raw.githubusercontent.com/DrupalizeMe/module-developer-guide-demo-site/main/backups/weather_forecast.json';
+    if ($location = $settings->get('location')) {
+      $url .= '?location=' . $location;
+    }
+
     $forecast_data = $this->forecastClient->getForecastData($url);
-    
+
     $table_rows = [];
     $highest = 0;
     $lowest = 0;
@@ -141,14 +148,26 @@ class MoreEventsPage extends ControllerBase {
       '#short_forecast' => $short_forecast,
       '#weather_closures' => [
         '#theme' => 'item_list',
-        '#title' => $this->t('Weather related closures'),
-        '#items' => [
-          $this->t('Ice rink closed until winter - please stay off while we prepare it.'),
-          $this->t('Parking behind Apple Lane is still closed from all the rain last weekend.'),
-        ],
-      ]
+        '#title' => $this->t('What all events do we organize?'),
+        '#items' => explode(PHP_EOL, $settings->get('event_categories')),
+      ],
+      '#cache' => [
+        // This content will vary if the settings for the module change, so we
+        // specify that here using cache tags.
+        //
+        // This will end up looking like 'config:anytown.settings' but when
+        // available it's better to use the getCacheTags() method to retrieve
+        // tags rather than hard-code them.
+        'tags' => $settings->getCacheTags(),
+        // Remember, this page can be accessed via multiple URLs, like /weather
+        // and /weather/extended. And varies depending on the URL, so we also
+        // need to add a cache context for the URL so that the content is cached
+        // per-url.
+        'contexts' => ['url'],
+      ],
     ];
 
     return $build;
   }
+
 }

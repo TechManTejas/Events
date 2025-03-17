@@ -1,4 +1,10 @@
 <?php
+
+/**
+ * @file
+ * Event timer module.
+ */
+
 /**
  * Implements hook_preprocess_HOOK() for node templates.
  */
@@ -10,10 +16,10 @@ function events_timer_preprocess_node(&$variables) {
       $timestamp = strtotime($event_start_time[0]['value']);
       $variables['event_start_timestamp'] = $timestamp;
 
-      // Attach the JavaScript library
+      // Attach the JavaScript library.
       $variables['#attached']['library'][] = 'events_timer/countdown_timer';
 
-      // Pass event start time to JavaScript via drupalSettings
+      // Pass event start time to JavaScript via drupalSettings.
       $variables['#attached']['drupalSettings']['events_timer'] = [
         'eventStartTime' => $timestamp,
       ];

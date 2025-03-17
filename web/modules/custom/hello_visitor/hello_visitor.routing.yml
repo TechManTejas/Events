@@ -19,3 +19,22 @@ hello_visitor.more_events_page:
   requirements:
     # What permissions a user needs to have in order to view this page.
     _permission: 'view more events'
+
+# Settings form route.
+hello_visitor.settings:
+  path: '/admin/config/system/hello_visitor'
+  defaults:
+    _title: 'Hello Visitor Settings'
+    # For form controllers use _form instead of _controller. This tells Drupal
+    # to use the build, validate, submit workflow for a form.
+    _form: 'Drupal\hello_visitor\Form\SettingsForm'
+  requirements:
+    _permission: 'administer site configuration'
+
+hello_visitor.attending:
+  path: '/attending'
+  defaults:
+    _title: 'Vendors attending this week'
+    _controller: '\Drupal\hello_visitor\Controller\Attending::build'
+  requirements:
+    _permission: 'access content'
